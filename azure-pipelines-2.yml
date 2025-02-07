@@ -1,7 +1,19 @@
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'my-azure-connection'
-    appName: 'linked-list-app'
-    package: 'linkedlist.java'
-    runtimeStack: 'JAVA|11'
-    resourceGroupName: 'my-resource-group'
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'  # This fixes the issue
+    displayName: 'Install Java 11'
+
+  - script: javac add.java
+    displayName: 'Compile Java File'
+
+  - script: java add
+    displayName: 'Run Java File'
