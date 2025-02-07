@@ -1,23 +1,6 @@
-trigger:
-- main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: JavaToolInstaller@0
-  inputs:
-    versionSpec: '11'
-    jdkArchitecture: 'x64'
-
-- script: |
-    javac linkedlist.java
-    java Main
-  displayName: 'Compile and Run Java Program'
-
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'your-service-connection'
+    azureSubscription: 'my-azure-connection'
     appName: 'linked-list-app'
     package: 'linkedlist.java'
     runtimeStack: 'JAVA|11'
