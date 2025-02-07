@@ -1,55 +1,22 @@
 trigger:
-
-- master
-
+  - master
 
 pool:
-
-
   vmImage: 'ubuntu-latest'
 
-
-strategy:
-
-
-  matrix:
-
-
-    Python27:
-
-
-      python.version: '3.8'
-
-
-
 steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.8'
+    displayName: 'Use Python 3.8'
+  
+  - script: python "python.py"
+    displayName: 'Run python.py'
 
-
-- task: UsePythonVersion@0
-
-
-  inputs:
-
-
-    versionSpec: '$(python.version)'
-
-
-  displayName: 'Use Python $(python.version)'
-
-
-- script: python "python.py"
-
-
-
-- task: PythonScript@0
-
-
-  inputs:
-
-
-    scriptSource: 'inline'
-
-
-    script: |
-      print('This is Section 1 Azure Demonstration')
-      print('KL-CSE')
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        print('This is Section 1 Azure Demonstration')
+        print('KL-CSE')
+    displayName: 'Run Inline Python Script'
