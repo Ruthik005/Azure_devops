@@ -1,0 +1,25 @@
+linked_list:
+  nodes:
+    - data: 10
+      next: 20
+    - data: 20
+      next: 30
+    - data: 30
+      next: 40
+    - data: 40
+      next: 50
+    - data: 50
+      next: null
+  operations:
+    - print_nodes: true
+    - calculate_sum: true
+
+azure:
+  deployment:
+    provider: azure
+    runtime: java
+    service: app-service
+    resource_group: my-resource-group
+    app_name: linked-list-app
+    region: eastus
+    file: linkedlist.java
