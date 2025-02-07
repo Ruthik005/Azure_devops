@@ -1,25 +1,24 @@
-linked_list:
-  nodes:
-    - data: 10
-      next: 20
-    - data: 20
-      next: 30
-    - data: 30
-      next: 40
-    - data: 40
-      next: 50
-    - data: 50
-      next: null
-  operations:
-    - print_nodes: true
-    - calculate_sum: true
+trigger:
+- main
 
-azure:
-  deployment:
-    provider: azure
-    runtime: java
-    service: app-service
-    resource_group: my-resource-group
-    app_name: linked-list-app
-    region: eastus
-    file: linkedlist.java
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '11'
+    jdkArchitecture: 'x64'
+
+- script: |
+    javac linkedlist.java
+    java Main
+  displayName: 'Compile and Run Java Program'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'your-service-connection'
+    appName: 'linked-list-app'
+    package: 'linkedlist.java'
+    runtimeStack: 'JAVA|11'
+    resourceGroupName: 'my-resource-group'
